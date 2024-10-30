@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كود برمجي</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<pre>
+class BankAccount {
+    private static int nextAccountNumber = 1;
+    private int accountNumber;
+    private String ownerName;
+    private double balance;
+
+    public BankAccount(String ownerName, double initialBalance) {
+        this.ownerName = ownerName;
+        this.balance = initialBalance;
+        this.accountNumber = nextAccountNumber++;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println(amount + " deposited to account " + accountNumber + ". New balance: " + balance);
+        } else {
+            System.out.println("Deposit amount must be positive.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println(amount + " withdrawn from account " + accountNumber + ". New balance: " + balance);
+        } else {
+            System.out.println("Insufficient funds or invalid amount.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Account Number: " + accountNumber + ", Owner: " + ownerName + ", Balance: " + balance;
+    }
+}
+
+class InvestmentAccount extends BankAccount {
+    private double fees;
+
+    public InvestmentAccount(String ownerName, double initialBalance, double fees) {
+        super(ownerName, initialBalance);
+        this.fees = fees;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Fees: " + fees;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount account1 = new BankAccount("Alice", 1000);
+        BankAccount account2 = new BankAccount("Bob", 500);
+
+        account1.deposit(200);
+        account1.withdraw(500);
+
+        account2.deposit(300);
+        account2.withdraw(900);
+
+        InvestmentAccount investmentAccount = new InvestmentAccount("Charlie", 2000, 10.5);
+
+        investmentAccount.deposit(500);
+        investmentAccount.withdraw(2500);
+
+        System.out.println(account1);
+        System.out.println(account2);
+        System.out.println(investmentAccount);
+    }
+}
+</pre>
+</body>
+</html>
